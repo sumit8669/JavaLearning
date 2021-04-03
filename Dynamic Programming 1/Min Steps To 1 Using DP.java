@@ -46,9 +46,10 @@ return 0;
 int[] minSteps = new int[n + 1];
 minSteps[1] = 0;
 for (int currStep = 2; currStep <= n; currStep++) {
-int subtractOne = Integer.MAX_VALUE;
-int divideByTwo = Integer.MAX_VALUE;
-int divideByThree = Integer.MAX_VALUE;
+  int temp = Integer.MAX_VALUE;
+int subtractOne = temp;
+int divideByTwo = temp;
+int divideByThree = temp;
 subtractOne = minSteps[currStep - 1];
 if (currStep % 2 == 0) {
 divideByTwo = minSteps[currStep / 2];
