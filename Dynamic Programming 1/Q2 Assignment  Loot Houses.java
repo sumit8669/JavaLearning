@@ -35,21 +35,27 @@ Where 'n' is the total number of houses
 */
 public class Solution {
 public static int maxMoneyLooted(int[] houses) {
-int n = houses.length;
-//Special case
-if (n == 0) {
-return 0;
-}
-if (n == 1) {
-return houses[0];
-}
-int[] maxMoneyCanBeLooted = new int[n];
-maxMoneyCanBeLooted[0] = houses[0];
-maxMoneyCanBeLooted[1] = Math.max(houses[0], houses[1]);
-for (int currHouse = 2; currHouse < n; currHouse++) {
-maxMoneyCanBeLooted[currHouse] = Math.max(maxMoneyCanBeLooted[currHouse -
-1], (houses[currHouse] + maxMoneyCanBeLooted[currHouse - 2]));
-}
-return maxMoneyCanBeLooted[n - 1];
-}
+		if(houses.length == 0) {return 0;}
+		int maxAmountIndeed = Integer.MIN_VALUE;
+		int[] maxLootedAmount = new int[houses.length];
+		int k = maxLootedAmount.length-1;
+		for(; k > maxLootedAmount.length-3; k--) {
+			maxLootedAmount[k] = houses[k];
+		}
+		for(int i=k; i>=0; i--) {
+			int j = i+2;
+			int maxAmount = Integer.MIN_VALUE;
+			for(; j<maxLootedAmount.length; j++) {
+				int amount = houses[i] + maxLootedAmount[j];
+				if(amount > maxAmount) {
+					maxAmount = amount;
+				}
+			}
+			maxLootedAmount[i] = maxAmount;
+			if(maxLootedAmount[i] > maxAmountIndeed) {
+				maxAmountIndeed = maxLootedAmount[i];
+			}
+		}
+		return maxAmountIndeed;
+	}
 }
